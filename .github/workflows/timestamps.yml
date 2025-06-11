@@ -15,9 +15,11 @@ jobs:
       - name: Set TIMESTAMP and GIT_SHA environment variables
         run: |
           echo "TIMESTAMP=$(TZ=Pacific/Auckland date +%Y%m%d%H%M)" >> $GITHUB_ENV
-          echo "GIT_SHA=sha-${GITHUB_SHA::7}" >> $GITHUB_ENV
+          echo "GIT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
+          echo "BUILD_NUMBER_SUFFIX="${TIMESTAMP}.${GIT_SHA}
 
       - name: Print specific environment variables
         run: |
           echo "TIMESTAMP=$TIMESTAMP"
           echo "GIT_SHA=$GIT_SHA"
+          echo "BUILD_NUMBER_SUFFIX=$BUILD_NUMBER_SUFFIX"
