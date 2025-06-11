@@ -14,13 +14,13 @@ jobs:
     steps:
       - name: Set TIMESTAMP and GIT_SHA environment variables
         run: |
-          echo "TIMESTAMP=$(TZ=Pacific/Auckland date +%Y%m%d%H%M)" >> $GITHUB_ENV
-          echo "GIT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
+          echo "TIMESTAMP=$(TZ=Pacific/Auckland date +%Y%m%d.%H%M)" >> $GITHUB_ENV
+          echo "GIT_SHA=sha-${GITHUB_SHA::7}" >> $GITHUB_ENV
           
 
       - name: Set Build number prefix
         run: |
-          echo "BUILD_NUMBER_SUFFIX=${TIMESTAMP}.${GIT_SHA}" >> $GITHUB_ENV
+          echo "BUILD_NUMBER_SUFFIX=${TIMESTAMP}-${GIT_SHA}" >> $GITHUB_ENV
 
       - name: Print specific environment variables
         run: |
