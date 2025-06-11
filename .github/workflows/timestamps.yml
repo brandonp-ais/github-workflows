@@ -1,4 +1,4 @@
-name: Timestamps and commit sha
+name: Testing outputs
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
 #       - main
 
 jobs:
-  brandon:
-    name: Brandon
+  timestamp:
+    name: Timestamp & commits
     runs-on: ubuntu-latest
 
     steps:
