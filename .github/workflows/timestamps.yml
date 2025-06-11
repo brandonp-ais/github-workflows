@@ -1,4 +1,4 @@
-name: Timestamps and commit sha
+name: Testing outputs
 
 on:
   push:
@@ -7,17 +7,26 @@ on:
 #       - main
 
 jobs:
-  brandon:
-    name: Brandon
+  timestamp:
+    name: Timestamp & commits
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set TIMESTAMP and GIT_SHA environment variables
+      - name: Set NZ timestamp and git commit environment variables
         run: |
-          echo "TIMESTAMP=$(TZ=Pacific/Auckland date +%Y%m%d%H%M)" >> $GITHUB_ENV
-          echo "GIT_SHA=sha-${GITHUB_SHA::7}" >> $GITHUB_ENV
+          echo "TIMESTAMP=$(TZ=Pacific/Auckland date +%Y%m%d.%H%M)" >> $GITHUB_ENV
+          echo "GIT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
+
+      - name: Set build number suffix
+        run: |
+          echo "BUILD_NUMBER_SUFFIX=${TIMESTAMP}-[${GIT_SHA}]" >> $GITHUB_ENV
 
       - name: Print specific environment variables
         run: |
+          echo "WORKSPACE=$WORKSPACE"
+          echo "MAJOR=$MAJOR"
+          echo "MINOR=$MINOR"
+          echo "PATCH=$PATCH"
           echo "TIMESTAMP=$TIMESTAMP"
           echo "GIT_SHA=$GIT_SHA"
+          echo "BUILD_NUMBER_SUFFIX=$BUILD_NUMBER_SUFFIX"
